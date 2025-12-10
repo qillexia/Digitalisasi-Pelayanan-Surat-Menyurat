@@ -1,0 +1,26 @@
+body {
+  font-family: "Public Sans", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+  }
+
+@media (min-width: 992px) {
+        .step-arrow {
+            position: relative;
+        }
+        
+        .step-arrow::after {
+            content: "";
+            position: absolute;
+            /* Posisi Top = 30px (Setengah dari tinggi ikon 60px) */
+            top: 30px; 
+            /* Menggeser garis agar menyambung ke elemen di kanannya */
+            right: -50%; 
+            width: 100%;
+            height: 3px;
+            background-color: #d1e7dd; /* Warna hijau pudar */
+            z-index: -1; /* Garis ada di belakang ikon */
+        }
+    }

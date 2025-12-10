@@ -1,0 +1,81 @@
+/* Setup Font & Warna Custom sesuai desain asli */
+body {
+  font-family: "Public Sans", sans-serif;
+  background-color: #f5f8f6;
+}
+
+/* Warna Hijau Tua (Sisi Kiri) */
+.bg-desa-dark {
+  background-color: #0a4e24;
+}
+
+/* Warna Hijau Terang (Aksen & Tombol) */
+.text-desa-primary {
+  color: #0df259 !important;
+}
+.bg-desa-primary {
+  background-color: #0df259 !important;
+}
+
+/* Styling Tombol Login */
+.btn  {
+  background-color: #0a4e24;
+  color: #ffffff; /* Teks tombol warna hijau tua */
+  font-weight: 700;
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  background-color: #278147;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.btn-back-home:hover {
+    color: #0df259; /* Hijau Neon (Warna Primary Desa) */
+    transition: all 0.3s ease;
+    transform: translateX(-5px); /* Efek gerak ke kiri sedikit */
+    text-decoration: none;
+}
+
+/* Styling Input Form agar mirip desain asli */
+.form-control-custom {
+  height: 56px; /* h-14 di tailwind */
+  border: 0.7px solid #dbe6df;
+  border-radius: 10px;
+  padding-left: 3rem; /* Memberi ruang untuk icon di kiri */
+}
+.form-control-custom:focus {
+  border-color: #0df259;
+  box-shadow: 0 0 0 2px rgba(13, 242, 89, 0.2);
+}
+
+/* Posisi Icon di dalam Input */
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: #608a6e;
+  z-index: 5;
+}
+
+.input-icon-right {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  color: #608a6e;
+  cursor: pointer;
+  border: none;
+  background: none;
+  z-index: 5;
+}
+
+/* Garis Dekorasi */
+.decoration-line {
+  width: 80px;
+  height: 4px;
+  background-color: #0df259;
+  margin: 1.5rem 0;
+}

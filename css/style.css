@@ -1,0 +1,205 @@
+/* =========================================
+   1. SETUP GLOBAL & VARIABEL
+   ========================================= */
+:root {
+  --font-family: "Public Sans", sans-serif;
+  
+  /* Brand Colors (Hijau Desa) */
+  --color-brand: #078825;
+  --color-brand-hover: #06701f;
+  --color-brand-subtle: rgba(7, 136, 37, 0.1);
+  
+  /* UI Colors (Background & Borders) */
+  --bg-light: #ffffff;
+  --border-color: #dbe6dc;
+  --text-dark: #111811;
+  --text-muted: #608a64;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+/* Global Icon Settings */
+.material-symbols-outlined {
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+/* =========================================
+   2. UTILITIES WARNA CUSTOM
+   ========================================= */
+.text-brand { color: var(--color-brand) !important; }
+.bg-brand { background-color: var(--color-brand) !important; color: white; }
+
+/* Background hijau transparan (untuk icon wrapper dll) */
+.bg-brand-subtle {
+  background-color: var(--color-brand-subtle) !important;
+  color: var(--color-brand) !important;
+}
+
+/* Custom Button */
+.btn-brand {
+  background-color: var(--color-brand);
+  color: white;
+  border: none;
+}
+.btn-brand:hover {
+  background-color: var(--color-brand-hover);
+  color: white;
+}
+
+/* =========================================
+   3. LAYOUT STRUCTURE (Sidebar & Content)
+   ========================================= */
+/* Sidebar Tetap (Fixed) */
+#sidebar-wrapper {
+  width: 280px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: white;
+  border-right: 1px solid var(--border-color);
+  transition: margin 0.3s ease-out;
+}
+
+/* Konten Utama (Memberi ruang untuk sidebar) */
+#page-content-wrapper {
+  width: 100%;
+  margin-left: 280px; /* Lebar sidebar */
+  transition: margin 0.3s ease-out;
+}
+
+/* =========================================
+   4. SIDEBAR NAVIGATION
+   ========================================= */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+/* State Hover & Active */
+.sidebar-link:hover,
+.sidebar-link.active {
+  background-color: var(--color-brand-subtle);
+  color: var(--color-brand);
+}
+
+.sidebar-link.active {
+  font-weight: 700;
+}
+
+.sidebar-link.active .material-symbols-outlined {
+  font-variation-settings: "FILL" 1;
+}
+
+/* Khusus Link Logout (Merah saat hover) */
+.sidebar-link.text-danger:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545 !important;
+}
+
+/* =========================================
+   5. DASHBOARD COMPONENTS
+   ========================================= */
+
+/* --- Search Bar Custom --- */
+.search-group .input-group-text {
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color); /* Tambahkan border agar konsisten */
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  color: var(--text-muted);
+}
+
+.search-group .form-control {
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+  box-shadow: none;
+}
+
+
+/* --- PAGINATION HELPER --- */
+.btn-paginasi {
+    width: 35px;           /* Lebar fix */
+    height: 35px;          /* Tinggi fix */
+    display: flex;         /* Agar angka di tengah */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;    /* Bootstrap 'rounded-circle' juga bisa, tapi ini pengaman */
+    transition: all 0.2s;
+}
+
+/* Efek Hover untuk tombol yang tidak aktif */
+.btn-paginasi:not(.active):hover {
+    background-color: #f8f9fa; /* Abu sangat muda (bg-light) */
+    color: #078825;            /* Hijau brand */
+}
+
+
+
+
+/* --- Cards --- */
+.card-custom {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem; /* rounded-xl */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* --- Tables --- */
+.table-custom thead th {
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  padding: 1rem;
+}
+
+.table-custom td {
+  padding: 1rem;
+  vertical-align: middle;
+  font-size: 0.875rem;
+  color: var(--text-dark);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-custom tr:last-child td {
+  border-bottom: none;
+}
+
+.table-hover tbody tr:hover {
+  background-color: var(--bg-light);
+}
+
+/* =========================================
+   6. RESPONSIVE (MOBILE)
+   ========================================= */
+@media (max-width: 768px) {
+  /* Sidebar sembunyi ke kiri */
+  #sidebar-wrapper {
+    margin-left: -280px;
+  }
+
+  /* Konten jadi lebar penuh */
+  #page-content-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  /* Saat tombol menu diklik (Class ditoggle via JS) */
+  body.sidebar-toggled #sidebar-wrapper {
+    margin-left: 0;
+  }
+}
