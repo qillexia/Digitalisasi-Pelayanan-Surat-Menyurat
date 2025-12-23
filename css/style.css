@@ -1,14 +1,16 @@
-/* =========================================
+/* ==========================================================================
    1. SETUP GLOBAL & VARIABEL
-   ========================================= */
+   --------------------------------------------------------------------------
+   Pengaturan dasar font, warna brand, dan reset body.
+   ========================================================================== */
 :root {
   --font-family: "Public Sans", sans-serif;
-  
+
   /* Brand Colors (Hijau Desa) */
   --color-brand: #078825;
   --color-brand-hover: #06701f;
   --color-brand-subtle: rgba(7, 136, 37, 0.1);
-  
+
   /* UI Colors (Background & Borders) */
   --bg-light: #ffffff;
   --border-color: #dbe6dc;
@@ -22,39 +24,51 @@ body {
   color: var(--text-dark);
 }
 
-/* Global Icon Settings */
+/* Pengaturan Global Icon Material Symbols */
 .material-symbols-outlined {
   font-size: 24px;
   vertical-align: middle;
 }
 
-/* =========================================
-   2. UTILITIES WARNA CUSTOM
-   ========================================= */
-.text-brand { color: var(--color-brand) !important; }
-.bg-brand { background-color: var(--color-brand) !important; color: white; }
+/* ==========================================================================
+   2. UTILITIES WARNA & TOMBOL CUSTOM
+   --------------------------------------------------------------------------
+   Class bantuan untuk warna teks, background, dan tombol custom brand.
+   ========================================================================== */
+.text-brand {
+  color: var(--color-brand) !important;
+}
 
-/* Background hijau transparan (untuk icon wrapper dll) */
+.bg-brand {
+  background-color: var(--color-brand) !important;
+  color: white;
+}
+
+/* Background hijau transparan (biasanya untuk wrapper icon) */
 .bg-brand-subtle {
   background-color: var(--color-brand-subtle) !important;
   color: var(--color-brand) !important;
 }
 
-/* Custom Button */
+/* Custom Button Style */
 .btn-brand {
   background-color: var(--color-brand);
   color: white;
   border: none;
 }
+
 .btn-brand:hover {
   background-color: var(--color-brand-hover);
   color: white;
 }
 
-/* =========================================
-   3. LAYOUT STRUCTURE (Sidebar & Content)
-   ========================================= */
-/* Sidebar Tetap (Fixed) */
+/* ==========================================================================
+   3. STRUKTUR LAYOUT UTAMA
+   --------------------------------------------------------------------------
+   Mengatur posisi Sidebar (Fixed) dan Konten Utama.
+   ========================================================================== */
+
+/* Wrapper Sidebar (Kiri) */
 #sidebar-wrapper {
   width: 280px;
   height: 100vh;
@@ -67,16 +81,23 @@ body {
   transition: margin 0.3s ease-out;
 }
 
-/* Konten Utama (Memberi ruang untuk sidebar) */
+/* Wrapper Konten (Kanan - Memberi margin agar tidak tertutup sidebar) */
 #page-content-wrapper {
   width: 100%;
-  margin-left: 280px; /* Lebar sidebar */
+  margin-left: 280px; /* Harus sama dengan lebar sidebar */
   transition: margin 0.3s ease-out;
 }
 
-/* =========================================
-   4. SIDEBAR NAVIGATION
-   ========================================= */
+/* Tombol Toggle Menu (Biasanya muncul di mobile) */
+#menu-toggle {
+  z-index: 1100;
+}
+
+/* ==========================================================================
+   4. NAVIGASI SIDEBAR
+   --------------------------------------------------------------------------
+   Styling untuk link menu, efek hover geser, dan status aktif.
+   ========================================================================== */
 .sidebar-link {
   display: flex;
   align-items: center;
@@ -84,38 +105,50 @@ body {
   text-decoration: none;
   color: var(--text-dark);
   font-weight: 500;
-  transition: all 0.2s;
+  padding: 10px 16px; /* Padding luas agar area klik nyaman */
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent; /* Border transparan untuk persiapan hover/active */
 }
 
-/* State Hover & Active */
-.sidebar-link:hover,
+/* --- Efek Hover (Saat mouse diarahkan) --- */
+.sidebar-link:hover {
+  background-color: #f1f8f3; /* Hijau sangat muda */
+  color: var(--color-brand);
+  transform: translateX(5px); /* Animasi geser ke kanan */
+  border-left: 3px solid var(--color-brand); /* Indikator garis hijau di kiri */
+}
+
+/* --- State Active (Halaman yang sedang dibuka) --- */
 .sidebar-link.active {
   background-color: var(--color-brand-subtle);
   color: var(--color-brand);
-}
-
-.sidebar-link.active {
   font-weight: 700;
 }
 
+/* Mengisi icon agar terlihat solid saat aktif */
 .sidebar-link.active .material-symbols-outlined {
   font-variation-settings: "FILL" 1;
 }
 
-/* Khusus Link Logout (Merah saat hover) */
+/* --- Khusus Link Logout (Merah) --- */
 .sidebar-link.text-danger:hover {
-  background-color: rgba(220, 53, 69, 0.1);
+  background-color: #fef2f2; /* Merah sangat muda */
   color: #dc3545 !important;
+  transform: translateX(5px);
+  border-left-color: #dc3545;
 }
 
-/* =========================================
-   5. DASHBOARD COMPONENTS
-   ========================================= */
+/* ==========================================================================
+   5. KOMPONEN DASHBOARD
+   --------------------------------------------------------------------------
+   Search bar, Cards, Tables, Pagination, Upload, Progress Bar.
+   ========================================================================== */
 
-/* --- Search Bar Custom --- */
+/* --- A. Custom Search Bar --- */
 .search-group .input-group-text {
   background-color: var(--bg-light);
-  border: 1px solid var(--border-color); /* Tambahkan border agar konsisten */
+  border: 1px solid var(--border-color);
   border-right: none;
   border-radius: 8px 0 0 8px;
   color: var(--text-muted);
@@ -129,36 +162,38 @@ body {
   box-shadow: none;
 }
 
-
-/* --- PAGINATION HELPER --- */
-.btn-paginasi {
-    width: 35px;           /* Lebar fix */
-    height: 35px;          /* Tinggi fix */
-    display: flex;         /* Agar angka di tengah */
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;    /* Bootstrap 'rounded-circle' juga bisa, tapi ini pengaman */
-    transition: all 0.2s;
-}
-
-/* Efek Hover untuk tombol yang tidak aktif */
-.btn-paginasi:not(.active):hover {
-    background-color: #f8f9fa; /* Abu sangat muda (bg-light) */
-    color: #078825;            /* Hijau brand */
-}
-
-
-
-
-/* --- Cards --- */
+/* --- B. Custom Cards --- */
 .card-custom {
   background: white;
   border: 1px solid var(--border-color);
-  border-radius: 0.75rem; /* rounded-xl */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-/* --- Tables --- */
+/* 1. Base Style (Tetap Global agar transisi halus di semua hal) */
+.card, .card-custom {
+  transition: all 0.3s ease-in-out;
+}
+
+/* 2. Definisi Card Custom (Tetap Global) */
+.card-custom {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* 3. EFEK HOVER KHUSUS DASHBOARD */
+/* Perhatikan: Ada tambahan .dashboard-area di depannya */
+.dashboard-area .card:hover, 
+.dashboard-area .card-custom:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--color-brand-subtle) !important;
+  cursor: pointer;
+}
+
+/* --- C. Custom Tables --- */
 .table-custom thead th {
   font-weight: 600;
   color: var(--text-muted);
@@ -183,23 +218,106 @@ body {
   background-color: var(--bg-light);
 }
 
-/* =========================================
-   6. RESPONSIVE (MOBILE)
-   ========================================= */
+/* --- D. Pagination (Navigasi Halaman) --- */
+
+/* Helper bulat kecil */
+.btn-paginasi {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.btn-paginasi:not(.active):hover {
+  background-color: #f8f9fa;
+  color: #078825;
+}
+
+/* Style Pagination Bootstrap Override (Manajemen Surat) */
+.pagination {
+  gap: 5px;
+}
+
+.pagination .page-link {
+  border: none;
+  color: #6c757d;
+  border-radius: 8px !important;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.pagination .page-link:hover {
+  background-color: #e6f4ea;
+  color: #078825;
+}
+
+/* State Aktif Pagination */
+.pagination .page-item.active .page-link {
+  background-color: #078825;
+  color: white;
+  box-shadow: 0 4px 6px rgba(7, 136, 37, 0.2);
+}
+
+/* State Disabled Pagination */
+.pagination .page-item.disabled .page-link {
+  background-color: transparent;
+  color: #dee2e6;
+}
+
+/* --- E. Elemen Tambahan (Progress Bar & Upload) --- */
+
+/* Progress Bar Hijau */
+.progress-bar-brand {
+  background-color: var(--color-brand);
+}
+
+/* Upload Box (Area Drag & Drop) */
+.upload-box {
+  border: 2px dashed var(--border-color);
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.upload-box:hover {
+  background-color: var(--color-brand-subtle);
+  border-color: var(--color-brand);
+}
+
+.upload-box:hover .material-symbols-outlined {
+  color: var(--color-brand);
+}
+
+/* ==========================================================================
+   6. RESPONSIF (MOBILE)
+   --------------------------------------------------------------------------
+   Pengaturan tampilan untuk layar lebar <= 768px (Tablet/HP).
+   ========================================================================== */
 @media (max-width: 768px) {
-  /* Sidebar sembunyi ke kiri */
+  /* Sembunyikan sidebar ke kiri layar */
   #sidebar-wrapper {
     margin-left: -280px;
   }
 
-  /* Konten jadi lebar penuh */
+  /* Konten memenuhi lebar layar */
   #page-content-wrapper {
     margin-left: 0;
     width: 100%;
   }
 
-  /* Saat tombol menu diklik (Class ditoggle via JS) */
+  /* Jika tombol menu diklik (class .sidebar-toggled ditambahkan via JS) */
   body.sidebar-toggled #sidebar-wrapper {
-    margin-left: 0;
+    margin-left: 0; /* Munculkan sidebar */
   }
 }

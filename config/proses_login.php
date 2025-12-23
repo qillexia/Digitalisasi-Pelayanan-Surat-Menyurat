@@ -14,9 +14,11 @@ if (isset($_POST['login'])) {
         $data = mysqli_fetch_assoc($query);
         
         // Simpan data ke session agar bisa dipakai di dashboard
+        $_SESSION['id_user'] = $data['id_user']; // <--- TAMBAHKAN BARIS INI (Pastikan nama kolom di DB adalah id_user)
         $_SESSION['username'] = $username;
         $_SESSION['nama'] = $data['nama_lengkap'];
         $_SESSION['status'] = "login";
+        $_SESSION['role'] = $data['role'];
 
         // Alihkan ke dashboard
         header("location: ../components/Dashboard.php");

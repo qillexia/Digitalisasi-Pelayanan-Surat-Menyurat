@@ -1,17 +1,14 @@
-<?php 
-session_start();
+<?php
+// 1. Include Config & Logic Database
+include '../config/DashboardConfig.php';
 
-// Cek apakah sudah login? Kalau belum tendang balik
-if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
-    header("location: ../pages/LoginPage.php?pesan=belum_login");
-    exit();
-}
+// 2. Include Logic Inisial Nama
+include '../config/Inisial.php';
 
-$page = 'dashboard';
-$nama_user = $_SESSION['nama']; 
+// 3. LOGIC MENENTUKAN LABEL ROLE (YANG BARU DITAMBAHKAN)
+include '../config/RoleSession.php';
+
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="id">
@@ -21,64 +18,55 @@ $nama_user = $_SESSION['nama'];
 <body>
 
     <div class="d-flex" id="wrapper">
-        <!-- Narik file sidebar -->
         <?php include 'sidebar.php'; ?>
 
         <main id="page-content-wrapper">
 
             <header class="sticky-top">
-                <nav class="navbar navbar-expand-lg bg-white border-bottom px-4 py-3" aria-label="Top Navigation">
+                <nav class="navbar navbar-expand-lg bg-white border-bottom px-4 py-3 shadow-sm-custom">
                     <div class="d-flex align-items-center justify-content-between w-100">
-
                         <div class="d-flex align-items-center gap-3">
-                            <button class="btn btn-light d-md-none border" id="menu-toggle" aria-label="Toggle Sidebar">
+                            <button class="btn btn-light d-md-none border" id="menu-toggle">
                                 <span class="material-symbols-outlined">menu</span>
                             </button>
                             <h2 class="h5 fw-bold mb-0 text-dark">Dashboard</h2>
                         </div>
 
                         <div class="d-flex align-items-center gap-4">
-                            <form class="d-none d-sm-flex search-group" role="search">
-                                <div class="input-group" style="width: 250px;">
-                                    <span class="input-group-text bg-light border-end-0 text-secondary">
-                                        <span class="material-symbols-outlined fs-5">search</span>
-                                    </span>
-                                    <input type="search" class="form-control bg-light border-start-0 ps-0" placeholder="Cari surat..." aria-label="Search">
-                                </div>
-                            </form>
-
-                            <button class="btn btn-light rounded-2 p-2 position-relative" aria-label="Notifikasi">
-                                <span class="material-symbols-outlined fs-5">notifications</span>
-                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-                                    <span class="visually-hidden">New alerts</span>
+                            <div class="text-end d-none d-md-block">
+                                <span class="d-block fw-bold text-dark small"><?= htmlspecialchars($nama_user) ?></span>
+                                <span class="d-block text-secondary x-small" style="font-size: 0.75rem;">
+                                    <?= $label_role ?>
                                 </span>
-                            </button>
-
-                            <div class="rounded-circle bg-secondary" style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBE3oUjw1tN-87R1nU3IFBBVRXHQ-NrvIHpOzjm0iQSoTAFHwzMqgftPFHxLW5Dp6EkOkV0788wlcmGpqIrTSOK38kTXvy_6oOi5cUD4OzrKm11RykKNoiwtFk3O6DNN5-slsXJdcApbERmrxiASZMDTGDDFL_boluOiphXWtvZsIXqPpTIn7o1h3cIW6iKJTecVPjngS6n_-dnj2gHpp8XeB9tIN5KeMzmWuSGvdcEh8FxyaeogN6N7ODZlvWoj-abzDAEzP_QJaHG'); background-size: cover;" role="img" aria-label="Profil Admin"></div>
+                            </div>
+                            <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center fw-bold shadow-sm"
+                                style="width: 40px; height: 40px; font-size: 16px; user-select: none;">
+                                <?= $inisial ?>
+                            </div>
                         </div>
                     </div>
                 </nav>
             </header>
 
-            <div class="container-fluid p-4 p-lg-5">
+            <div class="container-fluid p-4 p-lg-5 dashboard-area">
 
-                <section class="mb-5" aria-labelledby="welcome-title">
-                    <h1 id="welcome-title" class="fw-bold mb-1 display-6 fs-3 text-dark">
+                <section class="mb-5">
+                    <h1 class="fw-bold mb-1 display-6 fs-3 text-dark">
                         Selamat datang, <?php echo htmlspecialchars($nama_user); ?>!
                     </h1>
-                    <p class="text-secondary mb-0 small">Berikut adalah ringkasan aktivitas sistem hari ini.</p>
+                    <p class="text-secondary mb-0 small">Berikut adalah statistik pelayanan surat desa tahun <?= date('Y') ?>.</p>
                 </section>
 
-                <section class="row g-4 mb-5" aria-label="Statistik">
+                <section class="row g-4 mb-5">
                     <div class="col-md-4">
                         <article class="card border-0 shadow-sm rounded-4 h-100 p-4">
                             <div class="d-flex justify-content-between align-items-start">
                                 <div>
                                     <h3 class="h6 fw-medium text-secondary mb-2">Total Surat Masuk</h3>
-                                    <span class="fw-bold fs-3 lh-1 text-dark">150</span>
+                                    <span class="fw-bold fs-3 lh-1 text-dark"><?= $totalSurat ?></span>
                                 </div>
-                                <div class="p-2 rounded-3 bg-brand-subtle">
-                                    <span class="material-symbols-outlined text-brand">mail</span>
+                                <div class="p-2 rounded-3 bg-primary-subtle text-primary">
+                                    <span class="material-symbols-outlined">mail</span>
                                 </div>
                             </div>
                         </article>
@@ -89,7 +77,7 @@ $nama_user = $_SESSION['nama'];
                             <div class="d-flex justify-content-between align-items-start">
                                 <div>
                                     <h3 class="h6 fw-medium text-secondary mb-2">Menunggu Persetujuan</h3>
-                                    <span class="fw-bold fs-3 lh-1 text-dark">12</span>
+                                    <span class="fw-bold fs-3 lh-1 text-dark"><?= $totalMenunggu ?></span>
                                 </div>
                                 <div class="p-2 rounded-3 bg-warning-subtle text-warning-emphasis">
                                     <span class="material-symbols-outlined">pending_actions</span>
@@ -103,9 +91,9 @@ $nama_user = $_SESSION['nama'];
                             <div class="d-flex justify-content-between align-items-start">
                                 <div>
                                     <h3 class="h6 fw-medium text-secondary mb-2">Surat Selesai</h3>
-                                    <span class="fw-bold fs-3 lh-1 text-dark">98</span>
+                                    <span class="fw-bold fs-3 lh-1 text-dark"><?= $totalSelesai ?></span>
                                 </div>
-                                <div class="p-2 rounded-3 bg-primary-subtle text-primary-emphasis">
+                                <div class="p-2 rounded-3 bg-success-subtle text-success">
                                     <span class="material-symbols-outlined">check_circle</span>
                                 </div>
                             </div>
@@ -113,53 +101,133 @@ $nama_user = $_SESSION['nama'];
                     </div>
                 </section>
 
-                <section class="card border-0 shadow-sm rounded-4 p-4" aria-labelledby="table-title">
+                <section class="row g-4 mb-5">
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="h6 fw-bold mb-0 text-dark">Tren Permohonan Surat</h2>
+                                <span class="badge bg-light text-secondary border">Tahun <?= date('Y') ?></span>
+                            </div>
+                            <div style="height: 300px;">
+                                <canvas id="chartTrenSurat"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
+                            <h2 class="h6 fw-bold mb-4 text-dark">Persentase Status</h2>
+                            <div style="height: 250px; position: relative;">
+                                <canvas id="chartStatusSurat"></canvas>
+                            </div>
+                            <div class="mt-4 d-flex justify-content-center gap-3 text-center">
+                                <div>
+                                    <span class="d-block fw-bold fs-5 text-success"><?= $totalSelesai ?></span>
+                                    <span class="small text-secondary">Selesai</span>
+                                </div>
+                                <div class="vr opacity-25"></div>
+                                <div>
+                                    <span class="d-block fw-bold fs-5 text-warning"><?= $totalMenunggu ?></span>
+                                    <span class="small text-secondary">Proses</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card border-0 shadow-sm rounded-4 p-4">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2 id="table-title" class="h6 fw-bold mb-0 text-dark">Daftar Surat Terbaru</h2>
-                        <a href="#" class="text-decoration-none text-brand fw-semibold small">Lihat Semua</a>
+                        <div>
+                            <h2 class="h6 fw-bold mb-1 text-dark">Daftar Surat Terbaru</h2>
+                            <p class="text-secondary small mb-0">5 pengajuan surat terakhir yang masuk.</p>
+                        </div>
                     </div>
 
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
-                            <thead class="border-bottom">
+                            <thead class="bg-light border-bottom">
                                 <tr>
-                                    <th scope="col" class="text-secondary fw-semibold small py-3">No. Surat</th>
-                                    <th scope="col" class="text-secondary fw-semibold small py-3">Jenis Surat</th>
-                                    <th scope="col" class="text-secondary fw-semibold small py-3">Pemohon</th>
-                                    <th scope="col" class="text-secondary fw-semibold small py-3">Tanggal Masuk</th>
-                                    <th scope="col" class="text-secondary fw-semibold small py-3">Status</th>
-                                    <th scope="col" class="text-end text-secondary fw-semibold small py-3">Aksi</th>
+                                    <th class="ps-3 text-secondary fw-semibold small py-3">No. Surat</th>
+                                    <th class="text-secondary fw-semibold small py-3">Jenis Surat</th>
+                                    <th class="text-secondary fw-semibold small py-3">Pemohon</th>
+                                    <th class="text-secondary fw-semibold small py-3">Tanggal</th>
+                                    <th class="text-secondary fw-semibold small py-3">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="small">
-                                    <td class="fw-medium">SKTM/021/XI/2023</td>
-                                    <td>Surat Keterangan Tidak Mampu</td>
-                                    <td>Budi Santoso</td>
-                                    <td>28 Nov 2023</td>
-                                    <td>
-                                        <span class="badge bg-success-subtle text-success rounded-pill px-3 fw-medium">Selesai</span>
-                                    </td>
-                                    <td class="text-end">
-                                        <button class="btn btn-sm btn-link text-secondary p-0" aria-label="Opsi">
-                                            <span class="material-symbols-outlined">more_horiz</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="small">
-                                    <td class="fw-medium">SKU/045/XI/2023</td>
-                                    <td>Surat Keterangan Usaha</td>
-                                    <td>Siti Aminah</td>
-                                    <td>27 Nov 2023</td>
-                                    <td>
-                                        <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-3 fw-medium">Menunggu</span>
-                                    </td>
-                                    <td class="text-end">
-                                        <button class="btn btn-sm btn-link text-secondary p-0" aria-label="Opsi">
-                                            <span class="material-symbols-outlined">more_horiz</span>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php
+                                // Query ambil 5 surat terakhir
+                                $qTerbaru = mysqli_query($koneksi, "SELECT * FROM pengajuan_surat ORDER BY id_pengajuan DESC LIMIT 5");
+
+                                if (mysqli_num_rows($qTerbaru) > 0) {
+                                    while ($row = mysqli_fetch_assoc($qTerbaru)) {
+
+                                        // 1. Logic Warna Badge Status
+                                        $badgeClass = 'bg-secondary text-white';
+                                        $iconStatus = 'pending'; // Default icon
+
+                                        if ($row['status_pengajuan'] == 'Selesai') {
+                                            $badgeClass = 'bg-success text-white';
+                                            $iconStatus = 'check_circle';
+                                        } elseif ($row['status_pengajuan'] == 'Diproses') {
+                                            $badgeClass = 'bg-warning text-dark';
+                                            $iconStatus = 'sync';
+                                        } elseif ($row['status_pengajuan'] == 'Ditolak') {
+                                            $badgeClass = 'bg-danger text-white';
+                                            $iconStatus = 'cancel';
+                                        }
+
+                                        // 2. Mapping Nama Surat (Agar lebih cantik dari sekedar 'sktm')
+                                        $jenis_kode = strtolower($row['jenis_surat']);
+                                        $nama_surat_lengkap = ucwords(str_replace('_', ' ', $jenis_kode)); // Default fallback
+
+                                        // Kamus Nama Surat
+                                        $kamus_surat = [
+                                            'sktm' => 'Surat Keterangan Tidak Mampu',
+                                            'sku' => 'Surat Keterangan Usaha',
+                                            'skd' => 'Surat Keterangan Domisili',
+                                            'skbm' => 'Surat Ket. Belum Menikah',
+                                            'spn' => 'Surat Pengantar Nikah',
+                                            'skk' => 'Surat Keterangan Kehilangan',
+                                        ];
+
+                                        if (array_key_exists($jenis_kode, $kamus_surat)) {
+                                            $nama_surat_lengkap = $kamus_surat[$jenis_kode];
+                                        }
+
+                                        $no_surat = "REQ-" . str_pad($row['id_pengajuan'], 4, '0', STR_PAD_LEFT);
+                                        $tgl = date('d M Y', strtotime($row['tanggal_pengajuan']));
+                                ?>
+                                        <tr>
+                                            <td class="ps-3 fw-medium text-dark small"><?= $no_surat ?></td>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <span class="fw-medium text-dark small"><?= $nama_surat_lengkap ?></span>
+                                                    <span class="text-muted" style="font-size: 0.75rem;">Keperluan: <?= mb_strimwidth($row['keperluan'], 0, 20, "...") ?></span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="bg-light rounded-circle d-flex align-items-center justify-content-center text-secondary border" style="width: 30px; height: 30px;">
+                                                        <span class="material-symbols-outlined fs-6">person</span>
+                                                    </div>
+                                                    <span class="small fw-medium"><?= htmlspecialchars($row['nama_lengkap']) ?></span>
+                                                </div>
+                                            </td>
+                                            <td class="text-secondary small"><?= $tgl ?></td>
+                                            <td>
+                                                <div class="badge <?= $badgeClass ?> rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1 fw-medium border border-0">
+                                                    <span class="material-symbols-outlined" style="font-size: 14px;"><?= $iconStatus ?></span>
+                                                    <span><?= $row['status_pengajuan'] ?></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                <?php
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="6" class="text-center py-5 text-muted"><span class="material-symbols-outlined fs-1 d-block mb-2 text-secondary-subtle">inbox</span>Belum ada surat masuk hari ini.</td></tr>';
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -167,17 +235,19 @@ $nama_user = $_SESSION['nama'];
 
             </div>
         </main>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/MenuToggleResponsive.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        document.getElementById("menu-toggle").addEventListener("click", function(e) {
-            e.preventDefault();
-            document.body.classList.toggle("sidebar-toggled");
-        });
+        var dataBulanPHP = <?= $jsonGrafikBulan ?>;
+        var dataStatusPHP = <?= $jsonStatus ?>;
     </script>
+
+    <script src="../js/ChartsDashboard.js"></script>
+
 </body>
 
 </html>

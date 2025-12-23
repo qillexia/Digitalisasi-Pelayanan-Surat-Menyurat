@@ -1,102 +1,159 @@
+<?php
+// Sertakan file konfigurasi (pastikan path ini benar)
+include '../config/PengaturanConfig.php';
+include '../config/RoleSession.php';
+include '../config/Inisial.php';
+
+?>
 
 <!DOCTYPE html>
 <html lang="id">
 <?php include 'header.php'; ?>
+
 <body>
 
     <div class="d-flex" id="wrapper">
-        
+
         <aside id="sidebar-wrapper">
             <?php include 'sidebar.php'; ?>
         </aside>
 
         <main id="page-content-wrapper">
-            
-            <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-custom px-4 py-3 sticky-top" aria-label="Top Navigation">
+
+            <header class="sticky-top">
+                <nav class="navbar navbar-expand-lg bg-white border-bottom px-4 py-3 shadow-sm-custom" aria-label="Top Navigation">
                     <div class="d-flex align-items-center justify-content-between w-100">
                         <div class="d-flex align-items-center gap-3">
-                            <button class="btn btn-sm btn-light d-md-none border-custom" id="menu-toggle" aria-label="Toggle Sidebar">
+                            <button class="btn btn-light d-md-none border" id="menu-toggle" aria-label="Toggle Sidebar">
                                 <span class="material-symbols-outlined">menu</span>
                             </button>
                             <h1 class="h5 fw-bold mb-0 text-dark">Pengaturan</h1>
                         </div>
-                        <div class="rounded-circle bg-secondary" role="img" aria-label="Foto Profil Admin" style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxOfUIc8MMzObd8fzLuG-GsBZhBMvY0FXpl0RjW4lNCziBxgX3dRQmcGVj5YRTMu0fNt9ezoQwn6Mt6-vyXJJ7QaufWaVt1fp5ZDFiYw225by-1V1Kd4VnrWLu1iKXD8u1LYv52CBFG4HyJJQgMKHRLxH_ggk2CAwZl9Q2D84MFkwmTaL7LcGjwvTH3YzyFZf60pXinhsPoz-zig1L7T5u3PottgUyhpqFgvMxYrKVTplJmCAWKHBncYWdN4aQjGKGqoSjBD_a18n7'); background-size: cover; background-position: center;"></div>
+
+                        <div class="d-flex align-items-center gap-4">
+                            <div class="text-end d-none d-md-block">
+                                <span class="d-block fw-bold text-dark small"><?= htmlspecialchars($nama_user) ?></span>
+                                <span class="d-block text-secondary x-small" style="font-size: 0.75rem;">
+                                    <?= $label_role ?>
+                                </span>
+                            </div>
+                            <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center fw-bold shadow-sm"
+                                style="width: 40px; height: 40px; font-size: 16px; user-select: none;">
+                                <?= $inisial ?>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </header>
 
             <div class="container-fluid p-4 p-lg-5">
-                
-                <nav aria-label="breadcrumb" class="mb-3">
+
+                <nav aria-label="breadcrumb" class="mb-4">
                     <ol class="breadcrumb mb-1">
-                        <li class="breadcrumb-item"><a href="Dashboard.php" class="text-decoration-none text-secondary">Dashboard</a></li>
-                        <li class="breadcrumb-item active text-dark" aria-current="page">Pengaturan</li>
+                        <li class="breadcrumb-item"><a href="Dashboard.php" class="text-decoration-none text-secondary small">Dashboard</a></li>
+                        <li class="breadcrumb-item active text-dark small" aria-current="page">Pengaturan</li>
                     </ol>
-                    <h2 class="display-6 fw-bold text-dark fs-2">Pengaturan Akun</h2>
+                    <h2 class="fw-bold text-dark display-6 fs-3">Pengaturan Akun</h2>
                 </nav>
 
+                <?php if (isset($_GET['status'])): ?>
+                    <?php if ($_GET['status'] == 'sukses'): ?>
+                        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-3 mb-4" role="alert">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined fs-5">check_circle</span>
+                                <div><strong>Berhasil!</strong> Profil Anda telah diperbarui.</div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php elseif ($_GET['status'] == 'gagal'): ?>
+                        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-3 mb-4" role="alert">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined fs-5">error</span>
+                                <div><strong>Gagal!</strong> Password lama salah atau terjadi kesalahan sistem.</div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+
                 <section class="mb-4">
-                    <ul class="nav nav-tabs nav-tabs-custom border-bottom" id="settingsTab" role="tablist">
+                    <ul class="nav nav-tabs border-bottom" id="settingsTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active text-dark fw-bold border-0 border-bottom border-3 border-dark px-4 py-2 bg-transparent" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Profil Pengguna</button>
+                            <button class="nav-link active text-dark fw-bold border-0 border-bottom border-3 border-dark px-0 py-2 me-4 bg-transparent"
+                                id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">
+                                Profil Pengguna
+                            </button>
                         </li>
                     </ul>
                 </section>
 
                 <section class="tab-content" id="settingsTabContent">
-                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        
-                        <form class="card-custom p-4 p-lg-5 shadow-sm">
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel">
+
+                        <form class="card border-0 shadow-sm rounded-4 p-4 p-lg-5" method="POST">
                             <div class="row g-4">
-                                
+
                                 <div class="col-md-6">
-                                    <label for="namaLengkap" class="form-label fw-medium text-dark">Nama Lengkap</label>
-                                    <input type="text" class="form-control form-control-lg fs-6" id="namaLengkap" placeholder="Masukkan nama lengkap Anda" value="Admin Desa">
+                                    <label for="namaLengkap" class="form-label fw-medium text-secondary small">Nama Lengkap</label>
+                                    <input type="text" name="nama_lengkap"
+                                        class="form-control form-control-lg fs-6 bg-light border-0"
+                                        id="namaLengkap"
+                                        value="<?= htmlspecialchars($data['nama_lengkap']) ?>" required>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="email" class="form-label fw-medium text-dark">Alamat Email</label>
-                                    <input type="email" class="form-control form-control-lg fs-6" id="email" placeholder="Masukkan alamat email Anda" value="admin.desa@windusengkahan.go.id">
+                                    <label for="username" class="form-label fw-medium text-secondary small">Username</label>
+                                    <input type="text" name="username"
+                                        class="form-control form-control-lg fs-6 bg-light border-0"
+                                        id="username"
+                                        value="<?= htmlspecialchars($data['username']) ?>" required>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="email" class="form-label fw-medium text-secondary small">Alamat Email</label>
+                                    <input type="email" name="email"
+                                        class="form-control form-control-lg fs-6 bg-light border-0"
+                                        id="email"
+                                        value="<?= htmlspecialchars($data['email']) ?>">
+                                </div>
+
+                                <div class="col-12">
+                                    <hr class="text-muted opacity-25 my-2">
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="passwordLama" class="form-label fw-medium text-dark">Password Lama</label>
-                                    <input type="password" class="form-control form-control-lg fs-6" id="passwordLama" placeholder="Masukkan password lama">
+                                    <label for="passwordLama" class="form-label fw-medium text-secondary small">Password Lama</label>
+                                    <input type="password" name="password_lama"
+                                        class="form-control form-control-lg fs-6 bg-light border-0"
+                                        id="passwordLama"
+                                        placeholder="Isi jika ingin ganti password">
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="passwordBaru" class="form-label fw-medium text-dark">Password Baru</label>
-                                    <input type="password" class="form-control form-control-lg fs-6" id="passwordBaru" placeholder="Masukkan password baru">
+                                    <label for="passwordBaru" class="form-label fw-medium text-secondary small">Password Baru</label>
+                                    <input type="password" name="password_baru"
+                                        class="form-control form-control-lg fs-6 bg-light border-0"
+                                        id="passwordBaru"
+                                        placeholder="Masukkan password baru">
                                 </div>
 
                             </div>
 
-                            <div class="d-flex justify-content-end gap-3 mt-5 pt-4 border-top">
-                                <button type="button" class="btn btn-light border px-3 fw-semibold text-secondary">Batal</button>
-                                <button type="submit" class="btn btn-brand px-3 fw-semibold">Simpan Perubahan</button>
+                            <div class="d-flex justify-content-end gap-3 mt-5 pt-3 border-top">
+                                <button type="button" class="btn btn-light border px-4 fw-medium text-secondary" onclick="window.location.reload()">Batal</button>
+                                <button type="submit" name="update_profil" class="btn btn-brand px-4 fw-medium shadow-sm">Simpan Perubahan</button>
                             </div>
                         </form>
 
                     </div>
-                    
                 </section>
 
             </div>
         </main>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        var menuToggle = document.getElementById("menu-toggle");
-        var wrapper = document.getElementById("wrapper");
-
-        menuToggle.addEventListener("click", function(e) {
-            e.preventDefault();
-            wrapper.classList.toggle("sidebar-toggled");
-        });
-    </script>
+    <script src="../js/MenuToggleResponsive.js"></script>
 </body>
+
 </html>
