@@ -219,14 +219,13 @@ include '../config/RoleSession.php';
                                                         // TUGAS 1: Verifikasi (Hanya jika Pending)
                                                         if ($row['status_pengajuan'] == 'Pending') { ?>
 
-                                                            <a href="../config/ProsesSurat.php?aksi=verifikasi&id=<?= $row['id_pengajuan'] ?>"
-                                                                class="btn btn-sm btn-success" title="Verifikasi"
-                                                                onclick="return confirm('Apakah data sudah benar? Surat akan diteruskan ke Kepala Desa.')">
+                                                            <button type="button" class="btn btn-sm btn-success" title="Verifikasi"
+                                                                onclick="tampilkanModalProses('<?= $row['id_pengajuan'] ?>', 'verifikasi')">
                                                                 <span class="material-symbols-outlined fs-5">check</span>
-                                                            </a>
+                                                            </button>
 
-                                                            <button type="button" class="btn btn-sm btn-warning text-white"
-                                                                onclick="tolakSurat('<?= $row['id_pengajuan'] ?>')" title="Tolak">
+                                                            <button type="button" class="btn btn-sm btn-danger text-white"
+                                                                onclick="tampilkanModalProses('<?= $row['id_pengajuan'] ?>', 'tolak')" title="Tolak">
                                                                 <span class="material-symbols-outlined fs-5">close</span>
                                                             </button>
 
@@ -240,12 +239,11 @@ include '../config/RoleSession.php';
                                                                 <span class="material-symbols-outlined fs-5">print</span>
                                                             </a>
 
-                                                            <!-- TAMBAHAN: Tombol Kirim Email -->
-                                                            <a href="../config/ProsesSurat.php?aksi=kirim_email&id=<?= $row['id_pengajuan'] ?>" 
-                                                               class="btn btn-sm btn-primary" title="Kirim Notifikasi Email"
-                                                               onclick="return confirm('Kirim notifikasi email ke pemohon?')">
+                                                            <!-- UBAH BAGIAN INI: Panggil Modal Proses -->
+                                                            <button type="button" class="btn btn-sm btn-primary" title="Kirim Notifikasi Email"
+                                                                onclick="tampilkanModalProses('<?= $row['id_pengajuan'] ?>', 'kirim_email')">
                                                                 <span class="material-symbols-outlined fs-5">mail</span>
-                                                            </a>
+                                                            </button>
 
                                                         <?php }
                                                     }
@@ -256,14 +254,13 @@ include '../config/RoleSession.php';
                                                         // TUGAS: ACC / Tolak (Hanya jika Diproses)
                                                         if ($row['status_pengajuan'] == 'Diproses') { ?>
 
-                                                            <a href="../config/ProsesSurat.php?aksi=acc&id=<?= $row['id_pengajuan'] ?>"
-                                                                class="btn btn-sm btn-primary" title="ACC / Tanda Tangan"
-                                                                onclick="return confirm('Apakah Anda yakin ingin menyetujui surat ini?')">
+                                                            <button type="button" class="btn btn-sm btn-primary" title="ACC / Tanda Tangan"
+                                                                onclick="tampilkanModalProses('<?= $row['id_pengajuan'] ?>', 'acc')">
                                                                 <span class="material-symbols-outlined fs-5">draw</span>
-                                                            </a>
+                                                            </button>
 
                                                             <button type="button" class="btn btn-sm btn-danger"
-                                                                onclick="tolakSurat('<?= $row['id_pengajuan'] ?>')" title="Tolak">
+                                                                onclick="tampilkanModalProses('<?= $row['id_pengajuan'] ?>', 'tolak')" title="Tolak">
                                                                 <span class="material-symbols-outlined fs-5">block</span>
                                                             </button>
 
@@ -364,23 +361,13 @@ include '../config/RoleSession.php';
 
     <?php include 'modals/ModalDetailSurat.php'; ?>
     <?php include 'modals/ModalHapusSurat.php'; ?>
+    <?php include 'modals/ModalProsesSurat.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/MenuToggleResponsive.js"></script>
     <script src="../js/ModalDetailSurat.js"></script>
     <script src="../js/ModalHapusSurat.js"></script>
-
-    <script>
-        function tolakSurat(id) {
-            let alasan = prompt("Masukkan alasan penolakan surat ini (Wajib diisi):");
-            if (alasan != null && alasan.trim() != "") {
-                // Link mengarah ke config/ProsesSurat.php
-                window.location.href = "../config/ProsesSurat.php?aksi=tolak&id=" + id + "&alasan=" + encodeURIComponent(alasan);
-            } else if (alasan != null) {
-                alert("Alasan penolakan harus diisi!");
-            }
-        }
-    </script>
+    <script src="../js/ModalProsesSurat.js"></script>
 
 </body>
 
