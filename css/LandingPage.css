@@ -10,17 +10,15 @@ html {
         .step-arrow {
             position: relative;
         }
-        
-        .step-arrow::after {
-            content: "";
-            position: absolute;
-            /* Posisi Top = 30px (Setengah dari tinggi ikon 60px) */
-            top: 30px; 
-            /* Menggeser garis agar menyambung ke elemen di kanannya */
-            right: -50%; 
-            width: 100%;
-            height: 3px;
-            background-color: #d1e7dd; /* Warna hijau pudar */
-            z-index: -1; /* Garis ada di belakang ikon */
-        }
     }
+
+/* Card Hover Effect */
+.card.h-100 {
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.card.h-100:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+  border-color: #198754;
+}

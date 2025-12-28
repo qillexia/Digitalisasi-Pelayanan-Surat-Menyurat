@@ -204,6 +204,7 @@ include '../config/RoleSession.php';
                                                         data-keperluan="<?= htmlspecialchars($row['keperluan']) ?>"
                                                         data-tanggal="<?= $tanggal ?>"
                                                         data-status-pengajuan="<?= $row['status_pengajuan'] ?>"
+                                                        data-alasan="<?= isset($row['keterangan_tolak']) ? htmlspecialchars($row['keterangan_tolak']) : '-' ?>"
                                                         data-file-ktp="../uploads/<?= htmlspecialchars($row['file_ktp']) ?>"
                                                         data-file-kk="../uploads/<?= htmlspecialchars($row['file_kk']) ?>"
                                                         title="Lihat Detail">
@@ -234,7 +235,7 @@ include '../config/RoleSession.php';
                                                         // TUGAS 2: Print (Hanya jika Selesai)
                                                         if ($row['status_pengajuan'] == 'Selesai') { ?>
 
-                                                            <a href="../components/CetakSurat.php?id=<?= $row['id_pengajuan'] ?>" target="_blank"
+                                                            <a href="../config/CetakSurat.php?id=<?= $row['id_pengajuan'] ?>" target="_blank"
                                                                 class="btn btn-sm btn-dark" title="Cetak / Simpan PDF">
                                                                 <span class="material-symbols-outlined fs-5">print</span>
                                                             </a>

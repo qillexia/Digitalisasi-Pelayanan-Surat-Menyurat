@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var keperluan = button.getAttribute('data-keperluan');
             var tanggal = button.getAttribute('data-tanggal');
             var status = button.getAttribute('data-status-pengajuan');
+            var alasan = button.getAttribute('data-alasan'); // Ambil alasan
             var fileKtp = button.getAttribute('data-file-ktp');
             var fileKk = button.getAttribute('data-file-kk');
 
@@ -94,6 +95,17 @@ document.addEventListener('DOMContentLoaded', function() {
             modalDetail.querySelector('#detailAlamat').textContent = alamat;
             modalDetail.querySelector('#detailKeperluan').textContent = keperluan;
             modalDetail.querySelector('#detailTanggal').textContent = tanggal;
+
+            // Update Alasan Ditolak
+            var containerAlasan = modalDetail.querySelector('#containerAlasanDitolak');
+            var textAlasan = modalDetail.querySelector('#detailAlasanDitolak');
+
+            if (status === 'Ditolak') {
+                containerAlasan.classList.remove('d-none');
+                textAlasan.textContent = alasan || 'Tidak ada alasan yang dicantumkan.';
+            } else {
+                containerAlasan.classList.add('d-none');
+            }
 
             // Update Gambar
             var imgKtpEl = modalDetail.querySelector('#imgKTP');

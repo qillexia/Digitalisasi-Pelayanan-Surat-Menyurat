@@ -23,6 +23,15 @@
                     <div id="detailStatusBadge"></div>
                 </div>
 
+                <!-- ALASAN DITOLAK (Hidden by default) -->
+                <div id="containerAlasanDitolak" class="alert alert-danger d-none mb-4" role="alert">
+                    <h6 class="alert-heading fw-bold mb-1 d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined">error</span>
+                        Alasan Ditolak
+                    </h6>
+                    <p class="mb-0 small" id="detailAlasanDitolak"></p>
+                </div>
+
                 <div class="row g-4">
 
                     <!-- DATA PEMOHON -->
