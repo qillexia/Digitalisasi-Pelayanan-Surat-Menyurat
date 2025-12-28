@@ -1,5 +1,4 @@
-<?php include 'header.php';
-
+<?php
     if (!isset($currentPage)) {
         $currentPage = basename($_SERVER['PHP_SELF']);
     }
@@ -12,11 +11,12 @@
             $role_session = 'user'; // Default fallback
         }
     }
-    ?>
+?>
 
-    <aside id="sidebar-wrapper" class="bg-white border-end d-flex flex-column p-3 shadow-sm">
+<!-- SIDEBAR -->
+<aside id="sidebar-wrapper" class="bg-white border-end d-flex flex-column p-3 shadow-sm">
         <div class="d-flex align-items-center gap-3 p-2 mb-4">
-            <!-- Ganti Gambar dengan Icon Material Symbols agar pasti muncul -->
+            <!-- Logo dan Nama Aplikasi -->
             <div class="rounded-circle bg-success d-flex align-items-center justify-content-center text-white shadow-sm"
                 style="width: 40px; height: 40px;">
                 <span class="material-symbols-outlined fs-4">account_balance</span>
@@ -27,12 +27,14 @@
             </div>
         </div>
 
+        <!-- NAVIGATION LINKS -->
         <nav class="nav flex-column flex-grow-1 gap-2">
             <a href="Dashboard.php" class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 <?php echo ($currentPage == 'Dashboard.php') ? 'active' : ''; ?>">
                 <span class="material-symbols-outlined">dashboard</span>
                 Dashboard
             </a>
 
+            <!-- Tampilkan link manajemen hanya untuk admin dan petugas -->
             <?php if ($role_session != 'user'): ?>
                 <a href="ManajemenSurat.php" class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 <?php echo ($currentPage == 'ManajemenSurat.php') ? 'active' : ''; ?>">
                     <span class="material-symbols-outlined ">mail</span>
@@ -44,11 +46,13 @@
                 </a>
             <?php endif; ?>
 
+            <!-- Link Pengajuan Surat -->
             <a href="PengajuanSurat.php" class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 <?php echo ($currentPage == 'PengajuanSurat.php') ? 'active' : ''; ?>">
                 <span class="material-symbols-outlined ">arrow_upward</span>
                 Pengajuan Surat
             </a>
 
+            <!-- Tampilkan link laporan hanya untuk admin dan petugas -->
             <?php if ($role_session != 'user'): ?>
                 <a href="Laporan.php" class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 <?php echo ($currentPage == 'Laporan.php') ? 'active' : ''; ?>">
                     <span class="material-symbols-outlined ">monitoring</span>
@@ -56,12 +60,14 @@
                 </a>
             <?php endif; ?>
 
+            <!-- Link Pengaturan -->
             <a href="Pengaturan.php" class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 <?php echo ($currentPage == 'Pengaturan.php') ? 'active' : ''; ?>">
                 <span class="material-symbols-outlined ">settings</span>
                 Pengaturan
             </a>
         </nav>
 
+        <!-- Logout Link -->
         <div class="mt-auto pt-3 border-top">
             <a href="#" class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-danger" data-bs-toggle="modal" data-bs-target="#modalLogout">
                 <span class="material-symbols-outlined">logout</span>

@@ -1,0 +1,161 @@
+/* ==========================================================================
+   CSS UNTUK CETAK SURAT RESMI (A4)
+   ========================================================================== */
+
+/* --- RESET UNTUK PRINTER --- */
+@page {
+    size: A4;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', serif;
+    background: #eee;
+}
+
+/* --- KERTAS A4 --- */
+.sheet {
+    background: white;
+    width: 210mm;
+    height: 297mm;
+    display: block;
+    margin: 10mm auto;
+    padding: 20mm;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* --- TAMPILAN SAAT DI-PRINT --- */
+@media print {
+    body {
+        background: none;
+    }
+
+    .sheet {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+        height: auto;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* --- TOOLBAR CETAK (Hanya tampil di browser) --- */
+.print-toolbar {
+    text-align: center;
+    padding: 10px;
+    background: #333;
+    color: white;
+}
+
+.print-toolbar button {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background: #198754;
+    color: white;
+}
+
+.print-toolbar button:hover {
+    background: #157347;
+}
+
+/* --- KOP SURAT --- */
+.kop-surat {
+    text-align: center;
+    border-bottom: 3px double black;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.kop-surat h2,
+.kop-surat h3 {
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.kop-surat h2 {
+    font-size: 16pt;
+}
+
+.kop-surat h3 {
+    font-size: 14pt;
+}
+
+.kop-surat p {
+    margin: 5px 0 0;
+    font-size: 10pt;
+    font-style: italic;
+}
+
+/* --- JUDUL SURAT --- */
+.judul-surat {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.judul-surat h4 {
+    text-decoration: underline;
+    margin: 0;
+    font-size: 14pt;
+    text-transform: uppercase;
+}
+
+.judul-surat p {
+    margin: 5px 0 0;
+}
+
+/* --- ISI SURAT --- */
+.isi-surat {
+    font-size: 12pt;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+/* --- TABEL BIODATA --- */
+.tabel-bio {
+    width: 100%;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.tabel-bio td {
+    vertical-align: top;
+    padding: 2px 0;
+}
+
+.tabel-bio .label {
+    width: 180px;
+}
+
+/* --- TANDA TANGAN --- */
+.ttd {
+    float: right;
+    width: 40%;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.ttd p {
+    margin: 0;
+}
+
+.ttd-box {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ttd-nama {
+    text-decoration: underline;
+    font-weight: bold;
+}

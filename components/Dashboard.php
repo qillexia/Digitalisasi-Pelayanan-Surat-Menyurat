@@ -1,13 +1,12 @@
 <?php
-// 1. Include Config & Logic Database
+// <!-- Include konfigurasi dan logic utama dashboard -->
 include '../config/DashboardConfig.php';
 
-// 2. Include Logic Inisial Nama
+// <!-- Logic untuk inisial nama user -->
 include '../config/Inisial.php';
 
-// 3. LOGIC MENENTUKAN LABEL ROLE (YANG BARU DITAMBAHKAN)
+// <!-- Logic untuk menentukan label role user -->
 include '../config/RoleSession.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -18,20 +17,24 @@ include '../config/RoleSession.php';
 <body>
 
     <div class="d-flex" id="wrapper">
+        <!-- Sidebar Navigasi -->
         <?php include 'sidebar.php'; ?>
 
         <main id="page-content-wrapper">
 
+            <!-- Header Navigasi Atas -->
             <header class="sticky-top">
                 <nav class="navbar navbar-expand-lg bg-white border-bottom px-4 py-3 shadow-sm-custom">
                     <div class="d-flex align-items-center justify-content-between w-100">
                         <div class="d-flex align-items-center gap-3">
+                            <!-- Tombol toggle sidebar (hanya muncul di mobile) -->
                             <button class="btn btn-light d-md-none border" id="menu-toggle">
                                 <span class="material-symbols-outlined">menu</span>
                             </button>
                             <h2 class="h5 fw-bold mb-0 text-dark">Dashboard</h2>
                         </div>
 
+                        <!-- Info User (Nama, Role, Inisial) -->
                         <div class="d-flex align-items-center gap-4">
                             <div class="text-end d-none d-md-block">
                                 <span class="d-block fw-bold text-dark small"><?= htmlspecialchars($nama_user) ?></span>
@@ -50,6 +53,7 @@ include '../config/RoleSession.php';
 
             <div class="container-fluid p-4 p-lg-5 dashboard-area">
 
+                <!-- Section: Sambutan -->
                 <section class="mb-5">
                     <h1 class="fw-bold mb-1 display-6 fs-3 text-dark">
                         Selamat datang, <?php echo htmlspecialchars($nama_user); ?>!
@@ -57,7 +61,9 @@ include '../config/RoleSession.php';
                     <p class="text-secondary mb-0 small">Berikut adalah statistik pelayanan surat desa tahun <?= date('Y') ?>.</p>
                 </section>
 
+                <!-- Section: Statistik Kartu -->
                 <section class="row g-4 mb-5">
+                    <!-- Total Surat Masuk -->
                     <div class="col-md-4">
                         <article class="card border-0 shadow-sm rounded-4 h-100 p-4">
                             <div class="d-flex justify-content-between align-items-start">
@@ -71,7 +77,7 @@ include '../config/RoleSession.php';
                             </div>
                         </article>
                     </div>
-
+                    <!-- Menunggu Persetujuan -->
                     <div class="col-md-4">
                         <article class="card border-0 shadow-sm rounded-4 h-100 p-4">
                             <div class="d-flex justify-content-between align-items-start">
@@ -85,7 +91,7 @@ include '../config/RoleSession.php';
                             </div>
                         </article>
                     </div>
-
+                    <!-- Surat Selesai -->
                     <div class="col-md-4">
                         <article class="card border-0 shadow-sm rounded-4 h-100 p-4">
                             <div class="d-flex justify-content-between align-items-start">
@@ -101,7 +107,9 @@ include '../config/RoleSession.php';
                     </div>
                 </section>
 
+                <!-- Section: Grafik dan Donat -->
                 <section class="row g-4 mb-5">
+                    <!-- Grafik Tren Permohonan Surat -->
                     <div class="col-lg-8">
                         <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
                             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -113,7 +121,7 @@ include '../config/RoleSession.php';
                             </div>
                         </div>
                     </div>
-
+                    <!-- Grafik Donat Status Surat -->
                     <div class="col-lg-4">
                         <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
                             <h2 class="h6 fw-bold mb-4 text-dark">Persentase Status</h2>
@@ -135,6 +143,7 @@ include '../config/RoleSession.php';
                     </div>
                 </section>
 
+                <!-- Section: Daftar Surat Terbaru -->
                 <section class="card border-0 shadow-sm rounded-4 p-4">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <div>
@@ -156,13 +165,13 @@ include '../config/RoleSession.php';
                             </thead>
                             <tbody>
                                 <?php
-                                // Query ambil 5 surat terakhir
+                                // <!-- Query untuk mengambil 5 surat terbaru -->
                                 $qTerbaru = mysqli_query($koneksi, "SELECT * FROM pengajuan_surat ORDER BY id_pengajuan DESC LIMIT 5");
 
                                 if (mysqli_num_rows($qTerbaru) > 0) {
                                     while ($row = mysqli_fetch_assoc($qTerbaru)) {
 
-                                        // 1. Logic Warna Badge Status
+                                        // <!-- Logic badge warna dan icon status -->
                                         $badgeClass = 'bg-secondary text-white';
                                         $iconStatus = 'pending'; // Default icon
 
@@ -177,11 +186,11 @@ include '../config/RoleSession.php';
                                             $iconStatus = 'cancel';
                                         }
 
-                                        // 2. Mapping Nama Surat (Agar lebih cantik dari sekedar 'sktm')
+                                        // <!-- Mapping nama surat agar tampil lebih rapi -->
                                         $jenis_kode = strtolower($row['jenis_surat']);
                                         $nama_surat_lengkap = ucwords(str_replace('_', ' ', $jenis_kode)); // Default fallback
 
-                                        // Kamus Nama Surat
+                                        // <!-- Kamus nama surat untuk tampilan -->
                                         $kamus_surat = [
                                             'sktm' => 'Surat Keterangan Tidak Mampu',
                                             'sku' => 'Surat Keterangan Usaha',
@@ -195,17 +204,21 @@ include '../config/RoleSession.php';
                                             $nama_surat_lengkap = $kamus_surat[$jenis_kode];
                                         }
 
+                                        // <!-- Format nomor surat dan tanggal -->
                                         $no_surat = "REQ-" . str_pad($row['id_pengajuan'], 4, '0', STR_PAD_LEFT);
                                         $tgl = date('d M Y', strtotime($row['tanggal_pengajuan']));
                                 ?>
                                         <tr>
+                                            <!-- Nomor Surat -->
                                             <td class="ps-3 fw-medium text-dark small"><?= $no_surat ?></td>
+                                            <!-- Jenis Surat dan Keperluan -->
                                             <td>
                                                 <div class="d-flex flex-column">
                                                     <span class="fw-medium text-dark small"><?= $nama_surat_lengkap ?></span>
                                                     <span class="text-muted" style="font-size: 0.75rem;">Keperluan: <?= mb_strimwidth($row['keperluan'], 0, 20, "...") ?></span>
                                                 </div>
                                             </td>
+                                            <!-- Nama Pemohon -->
                                             <td>
                                                 <div class="d-flex align-items-center gap-2">
                                                     <div class="bg-light rounded-circle d-flex align-items-center justify-content-center text-secondary border" style="width: 30px; height: 30px;">
@@ -214,7 +227,9 @@ include '../config/RoleSession.php';
                                                     <span class="small fw-medium"><?= htmlspecialchars($row['nama_lengkap']) ?></span>
                                                 </div>
                                             </td>
+                                            <!-- Tanggal Pengajuan -->
                                             <td class="text-secondary small"><?= $tgl ?></td>
+                                            <!-- Status Surat -->
                                             <td>
                                                 <div class="badge <?= $badgeClass ?> rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1 fw-medium border border-0">
                                                     <span class="material-symbols-outlined" style="font-size: 14px;"><?= $iconStatus ?></span>
@@ -225,6 +240,7 @@ include '../config/RoleSession.php';
                                 <?php
                                     }
                                 } else {
+                                    // <!-- Jika tidak ada surat masuk -->
                                     echo '<tr><td colspan="6" class="text-center py-5 text-muted"><span class="material-symbols-outlined fs-1 d-block mb-2 text-secondary-subtle">inbox</span>Belum ada surat masuk hari ini.</td></tr>';
                                 }
                                 ?>
@@ -237,17 +253,19 @@ include '../config/RoleSession.php';
         </main>
     </div>
 
+    <!-- Script Bootstrap, Chart.js, dan JS Custom -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/MenuToggleResponsive.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- Data untuk Chart dari PHP -->
     <script>
         var dataBulanPHP = <?= $jsonGrafikBulan ?>;
         var dataStatusPHP = <?= $jsonStatus ?>;
     </script>
 
+    <!-- Script Chart Dashboard -->
     <script src="../js/ChartsDashboard.js"></script>
 
 </body>
-
 </html>

@@ -1,11 +1,11 @@
 <?php 
-// Panggil Config
+// <!-- Panggil konfigurasi dan logic edit pengguna -->
 include '../config/EditPenggunaConfig.php'; 
 
-// PERBAIKAN: Tambahkan .php agar sesuai dengan pengecekan di sidebar
+// <!-- Penanda halaman aktif untuk sidebar -->
 $currentPage = 'ManajemenPengguna.php'; 
 
-// Tangkap status dari URL untuk Alert
+// <!-- Tangkap status dan pesan dari URL untuk alert -->
 $status = isset($_GET['status']) ? $_GET['status'] : '';
 $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
 ?>
@@ -16,15 +16,18 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
 <body>
 
     <div class="d-flex" id="wrapper">
+        <!-- Sidebar Navigasi -->
         <aside id="sidebar-wrapper">
             <?php include 'sidebar.php'; ?>
         </aside>
 
         <main id="page-content-wrapper">
 
+            <!-- Header Navigasi Atas -->
             <header>
                 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-custom px-4 py-3 sticky-top">
                     <div class="d-flex align-items-center gap-3">
+                        <!-- Tombol toggle sidebar (hanya muncul di mobile) -->
                         <button class="btn btn-sm btn-light d-md-none border-custom" id="menu-toggle">
                             <span class="material-symbols-outlined">menu</span>
                         </button>
@@ -35,6 +38,7 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
 
             <div class="container-fluid px-4 px-lg-5 py-3">
 
+                <!-- Alert Sukses/Gagal -->
                 <?php if ($status == 'sukses'): ?>
                     <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4 rounded-3" role="alert">
                         <div class="d-flex align-items-center">
@@ -58,6 +62,7 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                     </div>
                 <?php endif; ?>
 
+                <!-- Breadcrumb Navigasi -->
                 <nav aria-label="breadcrumb" class="mb-4">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="ManajemenPengguna.php" class="text-decoration-none text-secondary">Manajemen Pengguna</a></li>
@@ -65,19 +70,23 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                     </ol>
                 </nav>
 
+                <!-- Judul dan Deskripsi Halaman -->
                 <div class="mb-4">
                     <h2 class="fw-bold display-6 fs-3 text-dark mb-2">Edit Pengguna</h2>
                     <p class="text-secondary mb-0 small">Perbarui informasi pengguna di bawah ini.</p>
                 </div>
 
+                <!-- Form Edit Pengguna -->
                 <section class="card-custom border-0 shadow-sm">
                     <div class="card-body p-4">
 
                         <form method="POST">
                             
+                            <!-- Data Akun -->
                             <h5 class="fw-bold text-dark border-bottom pb-2 mb-4">Data Akun</h5>
 
                             <div class="row g-4 mb-4">
+                                <!-- Nama Lengkap -->
                                 <div class="col-12">
                                     <label class="form-label fw-medium text-secondary small">Nama Lengkap</label>
                                     <div class="input-group">
@@ -88,6 +97,7 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                     </div>
                                 </div>
 
+                                <!-- Username -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-medium text-secondary small">Username</label>
                                     <div class="input-group">
@@ -98,6 +108,7 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                     </div>
                                 </div>
 
+                                <!-- Email -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-medium text-secondary small">Email</label>
                                     <div class="input-group">
@@ -109,6 +120,7 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                 </div>
                             </div>
 
+                            <!-- Info Ganti Password -->
                             <div class="alert alert-light border-start border-3 border-warning shadow-sm mb-4" role="alert">
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="material-symbols-outlined text-warning">lock_reset</span>
@@ -119,6 +131,7 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                 </div>
                             </div>
 
+                            <!-- Password Baru -->
                             <div class="mb-4">
                                 <label class="form-label fw-medium text-secondary small">Password Baru</label>
                                 <div class="input-group">
@@ -129,9 +142,11 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                 </div>
                             </div>
 
+                            <!-- Hak Akses & Status -->
                             <h5 class="fw-bold text-dark border-bottom pb-2 mb-4 mt-5">Hak Akses & Status</h5>
 
                             <div class="row g-4 mb-4">
+                                <!-- Pilihan Role -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-medium text-secondary small">Peran (Role)</label>
                                     <div class="input-group">
@@ -146,6 +161,7 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                     </div>
                                 </div>
 
+                                <!-- Pilihan Status Akun -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-medium text-secondary small">Status Akun</label>
                                     <div class="input-group">
@@ -160,6 +176,7 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                 </div>
                             </div>
 
+                            <!-- Tombol Aksi -->
                             <div class="d-flex justify-content-end gap-3 mt-5 pt-3 border-top">
                                 <a href="ManajemenPengguna.php" class="btn btn-light border px-4 py-2 text-secondary fw-medium">
                                     Batal
@@ -179,6 +196,7 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
         </main>
     </div>
 
+    <!-- Script Bootstrap & Custom -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

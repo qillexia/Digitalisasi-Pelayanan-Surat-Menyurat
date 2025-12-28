@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="col-lg-5 offset-lg-1" data-aos="fade-left">
-                        <img src="../components/Assets/image.png" alt="Kantor Desa Windusengkahan" class="img-fluid rounded-5 shadow-lg" style="width: 100%; height: 350px; object-fit: cover;">
+                        <img src="../components/Assets/image.jpeg" alt="Kantor Desa Windusengkahan" class="img-fluid rounded-5 shadow-lg" style="width: 100%; height: 350px; object-fit: cover;">
                     </div>
                 </div>
             </div>

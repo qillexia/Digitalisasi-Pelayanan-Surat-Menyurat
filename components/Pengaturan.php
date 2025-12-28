@@ -12,14 +12,16 @@ include '../config/Inisial.php';
 
 <body>
 
+    <!-- MAIN CONTENT -->
     <div class="d-flex" id="wrapper">
-
+        <!-- SIDEBAR -->
         <aside id="sidebar-wrapper">
             <?php include 'sidebar.php'; ?>
         </aside>
 
+        <!-- PAGE CONTENT -->
         <main id="page-content-wrapper">
-
+            <!-- HEADER / NAVBAR -->
             <header class="sticky-top">
                 <nav class="navbar navbar-expand-lg bg-white border-bottom px-4 py-3 shadow-sm-custom" aria-label="Top Navigation">
                     <div class="d-flex align-items-center justify-content-between w-100">
@@ -46,8 +48,9 @@ include '../config/Inisial.php';
                 </nav>
             </header>
 
+            <!-- MAIN CONTENT -->
             <div class="container-fluid p-4 p-lg-5">
-
+                <!-- Breadcrumb & Title -->
                 <nav aria-label="breadcrumb" class="mb-4">
                     <ol class="breadcrumb mb-1">
                         <li class="breadcrumb-item"><a href="Dashboard.php" class="text-decoration-none text-secondary small">Dashboard</a></li>
@@ -56,6 +59,7 @@ include '../config/Inisial.php';
                     <h2 class="fw-bold text-dark display-6 fs-3">Pengaturan Akun</h2>
                 </nav>
 
+                <!-- Notifikasi -->
                 <?php if (isset($_GET['status'])): ?>
                     <?php if ($_GET['status'] == 'sukses'): ?>
                         <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-3 mb-4" role="alert">
@@ -76,6 +80,7 @@ include '../config/Inisial.php';
                     <?php endif; ?>
                 <?php endif; ?>
 
+                <!-- Tabs Navigation -->
                 <section class="mb-4">
                     <ul class="nav nav-tabs border-bottom" id="settingsTab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -87,9 +92,10 @@ include '../config/Inisial.php';
                     </ul>
                 </section>
 
+                <!-- Tabs Content -->
                 <section class="tab-content" id="settingsTabContent">
                     <div class="tab-pane fade show active" id="profile" role="tabpanel">
-
+                        <!-- Form Update Profil Pengguna -->
                         <form class="card border-0 shadow-sm rounded-4 p-4 p-lg-5" method="POST">
                             <div class="row g-4">
 
@@ -152,7 +158,10 @@ include '../config/Inisial.php';
         </main>
     </div>
 
+    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script Menu Toggle -->
     <script src="../js/MenuToggleResponsive.js"></script>
 </body>
 

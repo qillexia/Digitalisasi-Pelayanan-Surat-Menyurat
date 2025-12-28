@@ -14,12 +14,13 @@ $currentPage = 'ManajemenPengguna.php';
 <?php include 'header.php'; ?>
 
 <body>
-
+    <!-- MAIN CONTENT -->
     <div class="d-flex" id="wrapper">
+        <!-- SIDEBAR -->
         <aside id="sidebar-wrapper">
             <?php include 'sidebar.php'; ?>
         </aside>
-
+        <!-- PAGE CONTENT -->
         <main id="page-content-wrapper">
             <header>
                 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-custom px-4 py-3 sticky-top">
@@ -32,8 +33,9 @@ $currentPage = 'ManajemenPengguna.php';
                 </nav>
             </header>
 
+            <!-- MAIN CONTENT -->
             <div class="container-fluid px-4 px-lg-5 py-4">
-
+                <!-- Notifikasi -->
                 <?php if ($status == 'sukses'): ?>
                     <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4 rounded-3" role="alert">
                         <div class="d-flex align-items-center">
@@ -56,6 +58,7 @@ $currentPage = 'ManajemenPengguna.php';
                     </div>
                 <?php endif; ?>
 
+                <!-- Breadcrumb & Title -->
                 <nav aria-label="breadcrumb" class="mb-3">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="ManajemenPengguna.php" class="text-decoration-none text-secondary">Manajemen Pengguna</a></li>
@@ -63,16 +66,19 @@ $currentPage = 'ManajemenPengguna.php';
                     </ol>
                 </nav>
 
+                <!-- Title and Description -->
                 <div class="mb-3">
                     <h2 class="fw-bold display-6 fs-3 text-dark mb-2">Tambah Pengguna Baru</h2>
                     <p class="text-secondary mb-0 small">Lengkapi formulir di bawah untuk mendaftarkan user baru ke dalam sistem.</p>
                 </div>
 
+                <!-- Form Tambah Pengguna -->
                 <section class="card-custom border-0 shadow-sm">
                     <div class="card-body px-4 px-lg-4 py-4">
                         <form method="POST" action="">
                             <h5 class="fw-bold text-dark border-bottom pb-2 mb-4">Data Akun</h5>
 
+                            <!-- Form Fields -->
                             <div class="row g-4 mb-4">
                                 <div class="col-12">
                                     <label class="form-label fw-medium text-secondary small">Nama Lengkap</label>
@@ -84,6 +90,7 @@ $currentPage = 'ManajemenPengguna.php';
                                     </div>
                                 </div>
 
+                                <!-- Form Fields -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-medium text-secondary small">Username</label>
                                     <div class="input-group">
@@ -93,6 +100,8 @@ $currentPage = 'ManajemenPengguna.php';
                                         <input type="text" name="username" class="form-control border-start-0 ps-0 bg-light-subtle" required placeholder="Masukkan username">
                                     </div>
                                 </div>
+
+                                <!-- Form Fields -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-medium text-secondary small">Email</label>
                                     <div class="input-group">
@@ -103,6 +112,7 @@ $currentPage = 'ManajemenPengguna.php';
                                     </div>
                                 </div>
 
+                                <!-- Form Fields -->
                                 <div class="col-12">
                                     <label class="form-label fw-medium text-secondary small">Password</label>
                                     <div class="input-group">
@@ -116,6 +126,7 @@ $currentPage = 'ManajemenPengguna.php';
 
                             <h5 class="fw-bold text-dark border-bottom pb-2 mb-4 mt-5">Hak Akses</h5>
 
+                            <!-- Form Fields -->
                             <div class="row g-4 mb-4">
                                 <div class="col-md-6">
                                     <label class="form-label fw-medium text-secondary small">Peran (Role)</label>
@@ -145,6 +156,7 @@ $currentPage = 'ManajemenPengguna.php';
                                 </div>
                             </div>
 
+                            <!-- Form Actions -->
                             <div class="d-flex justify-content-end gap-3 mt-5 pt-3 border-top">
                                 <a href="ManajemenPengguna.php" class="btn btn-light border px-4 py-2 text-secondary fw-medium">Batal</a>
                                 <button type="submit" name="submit" class="btn btn-brand px-4 py-2 fw-medium d-flex align-items-center gap-2">
@@ -159,6 +171,7 @@ $currentPage = 'ManajemenPengguna.php';
         </main>
     </div>
 
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

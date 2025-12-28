@@ -1,6 +1,6 @@
 <?php
 session_start();
-// HAPUS BARIS INCLUDE PROSES DI SINI AGAR TIDAK ERROR LOOPING!
+
 $page = 'layanan_surat';
 
 // Tangkap Notifikasi
@@ -20,13 +20,14 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
 <body>
 
     <div class="d-flex" id="wrapper">
-
+        <!-- SIDEBAR -->
         <aside id="sidebar-wrapper">
             <?php include 'sidebar.php'; ?>
         </aside>
 
+        <!-- PAGE CONTENT -->
         <main id="page-content-wrapper">
-
+            <!-- HEADER / NAVBAR -->
             <header class="sticky-top">
                 <nav class="navbar navbar-expand-lg bg-white border-bottom px-4 py-3">
                     <div class="d-flex align-items-center justify-content-between w-100">
@@ -37,12 +38,14 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                             <h2 class="h5 fw-bold mb-0 text-dark">Layanan Surat</h2>
                         </div>
                         <div class="d-flex align-items-center gap-4">
+                            <!-- User Info Desktop & Avatar -->
                             <div class="text-end d-none d-md-block">
                                 <span class="d-block fw-bold text-dark small"><?= htmlspecialchars($nama_user) ?></span>
                                 <span class="d-block text-secondary x-small" style="font-size: 0.75rem;">
                                     <?= $label_role ?>
                                 </span>
                             </div>
+                            <!-- Avatar Inisial -->
                             <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center fw-bold shadow-sm"
                                 style="width: 40px; height: 40px; font-size: 16px; user-select: none;">
                                 <?= $inisial ?>
@@ -52,8 +55,10 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                 </nav>
             </header>
 
+            <!-- MAIN CONTENT -->
             <div class="container-fluid p-4 p-lg-4" style="max-width: 1150px;">
 
+                <!-- Notifikasi -->
                 <?php if ($status == 'sukses'): ?>
                     <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
                         <div class="d-flex align-items-center">
@@ -71,7 +76,8 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 <?php endif; ?>
-
+                
+                <!-- Breadcrumb & Title -->
                 <section class="mb-3">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-2">
@@ -82,10 +88,10 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                     <h1 class="fw-bold display-6 fs-3 text-dark mb-2">Pengajuan Surat Online</h1>
                     <p class="text-muted mb-0 small">Isi formulir di bawah dengan data yang valid untuk mempercepat proses verifikasi.</p>
                 </section>
-
+                
+                <!-- Form Pengajuan Surat -->
                 <form class="card-custom mb-4" action="../config/proses_pengajuan.php" method="POST" enctype="multipart/form-data">
                     <div class="card-body p-4 p-md-5">
-
                         <section class="mb-5">
                             <h5 class="fw-bold text-dark d-flex align-items-center gap-3 mb-4 border-bottom pb-3">
                                 <span class="material-symbols-outlined text-success">article</span> Jenis Layanan
@@ -191,10 +197,9 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                 <label class="form-label fw-medium text-secondary">Keperluan Surat <span class="text-danger">*</span></label>
                                 <textarea class="form-control" name="keperluan" rows="3" placeholder="Jelaskan tujuan surat..." required></textarea>
                             </div>
-
-                            <!-- INPUT EMAIL DIHAPUS KARENA SUDAH OTOMATIS -->
                         </section>
 
+                        <!-- Upload Dokumen Pendukung -->
                         <section class="mb-4">
                             <h5 class="fw-bold text-dark d-flex align-items-center gap-3 mb-2 border-bottom pb-3">
                                 <span class="material-symbols-outlined text-success">upload_file</span> Dokumen Pendukung
@@ -202,29 +207,28 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                             <p class="text-muted small mb-4">Format: JPG, PNG, atau PDF. Maks 2MB.</p>
 
                             <div class="row g-4">
-                                <div class="col-md-6">
+                                <div class="col-12 col-md-6">
                                     <label class="form-label fw-medium text-secondary">Foto KTP <span class="text-danger">*</span></label>
-                                    <div class="upload-box p-4 text-center d-flex flex-column align-items-center justify-content-center h-100">
+                                    <label class="upload-box p-5 text-center d-flex flex-column align-items-center justify-content-center w-100" style="min-height: 120px; cursor: pointer;">
                                         <span class="material-symbols-outlined fs-1 text-muted mb-2" id="icon-ktp">add_photo_alternate</span>
                                         <p class="small text-muted mb-0 fw-medium" id="text-ktp">Klik atau Drag file ke sini</p>
-                                        <input type="file" name="file_ktp" class="position-absolute top-0 start-0 w-100 h-100 opacity-0"
-                                            style="cursor: pointer;" accept="image/*,.pdf" required
+                                        <input type="file" name="file_ktp" class="d-none" accept="image/*,.pdf" required
                                             onchange="updateFileName(this, 'text-ktp', 'icon-ktp')">
-                                    </div>
+                                    </label>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-12 col-md-6">
                                     <label class="form-label fw-medium text-secondary">Foto KK <span class="text-danger">*</span></label>
-                                    <div class="upload-box p-4 text-center d-flex flex-column align-items-center justify-content-center h-100">
+                                    <label class="upload-box p-5 text-center d-flex flex-column align-items-center justify-content-center w-100" style="min-height: 120px; cursor: pointer;">
                                         <span class="material-symbols-outlined fs-1 text-muted mb-2" id="icon-kk">add_photo_alternate</span>
                                         <p class="small text-muted mb-0 fw-medium" id="text-kk">Klik atau Drag file ke sini</p>
-                                        <input type="file" name="file_kk" class="position-absolute top-0 start-0 w-100 h-100 opacity-0"
-                                            style="cursor: pointer;" accept="image/*,.pdf" required
+                                        <input type="file" name="file_kk" class="d-none" accept="image/*,.pdf" required
                                             onchange="updateFileName(this, 'text-kk', 'icon-kk')">
-                                    </div>
+                                    </label>
                                 </div>
                             </div>
                         </section>
 
+                        <!-- Submit Button -->
                         <div class="d-flex justify-content-end gap-3 mt-5 pt-3 border-top">
                             <button type="submit" class="btn btn-brand px-4 py-2 fw-medium shadow-sm d-flex align-items-center gap-2">
                                 <span class="material-symbols-outlined fs-5">send</span> Ajukan Permohonan
@@ -233,7 +237,8 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
 
                     </div>
                 </form>
-
+                
+                <!-- Info Penting -->
                 <div class="alert bg-success-subtle text-success border-0 d-flex align-items-start gap-3 rounded-3" role="alert">
                     <span class="material-symbols-outlined mt-1">info</span>
                     <div class="small text-dark">
@@ -246,7 +251,10 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
         </main>
     </div>
 
+    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script Upload File -->
     <script>
         // Script Penting agar UX Upload berjalan
         function updateFileName(input, textId, iconId) {
@@ -264,6 +272,8 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
             }
         }
     </script>
+
+    <!-- Menu Toggle Script -->
     <script src="../js/MenuToggleResponsive.js"></script>
 
 </body>

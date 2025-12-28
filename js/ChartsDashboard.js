@@ -20,12 +20,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 datasets: [{
                     label: 'Jumlah Surat',
                     data: dataBulanPHP, // Menggunakan data dari variabel global
-                    borderColor: '#0d6efd',
+                    borderColor: '#218d2dff', 
                     backgroundColor: gradient,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     pointBackgroundColor: '#fff',
-                    pointBorderColor: '#0d6efd',
-                    pointRadius: 4,
+                    pointBorderColor: '#2cac43ff',
+                    pointRadius: 5,
                     pointHoverRadius: 6,
                     fill: true,
                     tension: 0.4
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         labels: { usePointStyle: true, padding: 20 }
                     }
                 },
-                cutout: '70%'
+                cutout: '60%'
             }
         });
     }
