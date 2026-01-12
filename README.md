@@ -1,44 +1,78 @@
 # Digitalisasi Pelayanan Surat Menyurat
 
-Sistem digitalisasi pelayanan surat menyurat untuk meningkatkan efisiensi dan efektivitas pengelolaan surat.
+Aplikasi berbasis web untuk digitalisasi, pengelolaan, dan pelacakan pelayanan surat-menyurat. Sistem ini dirancang untuk mempermudah instansi dalam manajemen pengguna, pengajuan surat, pemrosesan, hingga pelaporan.
 
-## Deskripsi
+## Fitur Utama
 
-Proyek ini bertujuan untuk mengdigitalkan proses pelayanan surat menyurat, memudahkan pengelolaan, pelacakan, dan arsip surat secara elektronik.
+- **Dashboard**: Gambaran umum statistik surat dan aktivitas.
+- **Manajemen Pengguna**:
+  - Tambah, Edit, dan Hapus pengguna.
+  - Pengaturan peran (Role).
+- **Manajemen Surat**:
+  - Pengajuan Surat baru.
+  - Pemrosesan status surat (Disetujui, Ditolak, dll).
+  - Cetak Surat (Template dinamis).
+  - Riwayat dan Arsip Surat.
+- **Laporan**: Rekapitulasi data surat.
+- **Notifikasi Email**: Pemberitahuan otomatis status surat menggunakan PHPMailer.
+- **Antarmuka Responsif**: Mendukung tampilan desktop dan mobile.
 
-## Fitur
+## Teknologi yang Digunakan
 
-- Pengelolaan surat masuk dan surat keluar
-- Sistem pelacakan surat
-- Arsip digital
-- Notifikasi otomatis
-- Pelaporan dan statistik
+- **Backend**: PHP Native
+- **Frontend**: HTML, CSS, JavaScript
+- **Database**: MySQL
+- **Library Pihak Ketiga**:
+  - [PHPMailer](https://github.com/PHPMailer/PHPMailer) untuk pengiriman email.
+  - Composer untuk manajemen dependensi.
 
-## Instalasi
+## Struktur Folder
 
-```bash
-# Clone repository
-git clone https://github.com/qillexia/Digitalisasi-Pelayanan-Surat-Menyurat.git
-
-# Masuk ke direktori proyek
-cd Digitalisasi-Pelayanan-Surat-Menyurat
-
-# Install dependencies (sesuaikan dengan teknologi yang digunakan)
-# npm install
+```
+/
+├── components/       # Komponen UI (Dashboard, Sidebar, Manajemen User/Surat)
+├── config/           # Konfigurasi DB, Helper, dan Logika Pemrosesan
+├── css/              # Stylesheet aplikasi
+├── database/         # File SQL untuk import database
+├── js/               # Script JavaScript (Charts, Modals, Toggle)
+├── Pages/            # Halaman utama (Login, Landing Page)
+├── templates/        # Template Email dan Cetak Surat
+├── uploads/          # Folder penyimpanan file upload
+└── vendor/           # Dependensi Composer
 ```
 
-## Penggunaan
+## Cara Instalasi
 
-Petunjuk penggunaan akan ditambahkan seiring perkembangan proyek.
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/username/Digitalisasi-Pelayanan-Surat-Menyurat.git
+   ```
 
-## Kontribusi
+2. **Persiapan Database**
+   - Buat database baru di MySQL dengan nama `db_surat_menyurat`.
+   - Import file `database/db_surat_menyurat.sql` ke dalam database tersebut.
 
-Kontribusi selalu diterima! Silakan buat pull request atau buka issue untuk saran dan perbaikan.
+3. **Konfigurasi Koneksi**
+   - Buka file `config/koneksi.php`.
+   - Sesuaikan konfigurasi database dengan lingkungan lokal Anda:
+     ```php
+     $host     = "localhost";
+     $username = "root";       // User database Anda
+     $password = "";           // Password database Anda
+     $database = "db_surat_menyurat";
+     ```
+
+4. **Instalasi Dependensi (Opsional)**
+   - Jika folder `vendor/` belum ada, jalankan perintah berikut di terminal:
+     ```bash
+     composer install
+     ```
+
+5. **Menjalankan Aplikasi**
+   - Pastikan web server (Apache/Nginx) dan MySQL sudah berjalan (contoh: via XAMPP/Laragon).
+   - Akses aplikasi melalui browser, misalnya:
+     `http://localhost/Digitalisasi-Pelayanan-Surat-Menyurat/Pages/LandingPage.php` atau `LoginPage.php`
 
 ## Lisensi
 
-[Tambahkan informasi lisensi di sini]
-
-## Kontak
-
-Untuk informasi lebih lanjut, silakan hubungi [@qillexia](https://github.com/qillexia)
+[MIT License](LICENSE)
