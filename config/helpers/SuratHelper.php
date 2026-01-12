@@ -47,7 +47,7 @@ function getJudulSurat($jenis)
 function formatNomorSurat($id_pengajuan)
 {
     // Contoh: 470 / 001 / Ds.WDS / 2025
-    return '470 / ' . str_pad($id_pengajuan, 3, '0', STR_PAD_LEFT) . ' / Ds.WDS / ' . date('Y');
+    return '470 / ' . str_pad($id_pengajuan, 3, '0', STR_PAD_LEFT) . ' / WDS / ' . date('Y');
 }
 
 

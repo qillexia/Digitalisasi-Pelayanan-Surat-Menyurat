@@ -3,7 +3,7 @@
 
 $host     = "localhost";
 $username = "root";
-$password = "";          // Kosongkan jika pakai XAMPP default
+$password = "2181";          // Kosongkan kalo pake windows
 $database = "db_surat_menyurat"; // Pastikan nama ini sesuai dengan database yang Anda buat di phpMyAdmin
 
 // Buat koneksi

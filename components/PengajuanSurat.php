@@ -77,6 +77,9 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                     </div>
                 <?php endif; ?>
                 
+                <!-- Container untuk Alert Validasi JS -->
+                <div id="alert-container"></div>
+                
                 <!-- Breadcrumb & Title -->
                 <section class="mb-3">
                     <nav aria-label="breadcrumb">
@@ -122,7 +125,8 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-medium text-secondary">Nama Lengkap <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="nama_lengkap" placeholder="Sesuai KTP" required>
+                                    <!-- Mengubah Nama menjadi statis (readonly) mengambil dari session nama_user -->
+                                    <input type="text" class="form-control" name="nama_lengkap" value="<?= htmlspecialchars($nama_user) ?>" readonly>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-medium text-secondary">Tempat Lahir <span class="text-danger">*</span></label>
@@ -204,7 +208,8 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                             <h5 class="fw-bold text-dark d-flex align-items-center gap-3 mb-2 border-bottom pb-3">
                                 <span class="material-symbols-outlined text-success">upload_file</span> Dokumen Pendukung
                             </h5>
-                            <p class="text-muted small mb-4">Format: JPG, PNG, atau PDF. Maks 2MB.</p>
+                            <!-- Ubah info format file -->
+                            <p class="text-muted small mb-4">Format: JPG atau PNG. Maks 2MB.</p>
 
                             <div class="row g-4">
                                 <div class="col-12 col-md-6">
@@ -212,7 +217,8 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                     <label class="upload-box p-5 text-center d-flex flex-column align-items-center justify-content-center w-100" style="min-height: 120px; cursor: pointer;">
                                         <span class="material-symbols-outlined fs-1 text-muted mb-2" id="icon-ktp">add_photo_alternate</span>
                                         <p class="small text-muted mb-0 fw-medium" id="text-ktp">Klik atau Drag file ke sini</p>
-                                        <input type="file" name="file_ktp" class="d-none" accept="image/*,.pdf" required
+                                        <!-- Ubah accept hanya gambar -->
+                                        <input type="file" name="file_ktp" class="d-none" accept=".jpg, .jpeg, .png, image/png, image/jpeg" required
                                             onchange="updateFileName(this, 'text-ktp', 'icon-ktp')">
                                     </label>
                                 </div>
@@ -221,7 +227,8 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                                     <label class="upload-box p-5 text-center d-flex flex-column align-items-center justify-content-center w-100" style="min-height: 120px; cursor: pointer;">
                                         <span class="material-symbols-outlined fs-1 text-muted mb-2" id="icon-kk">add_photo_alternate</span>
                                         <p class="small text-muted mb-0 fw-medium" id="text-kk">Klik atau Drag file ke sini</p>
-                                        <input type="file" name="file_kk" class="d-none" accept="image/*,.pdf" required
+                                        <!-- Ubah accept hanya gambar -->
+                                        <input type="file" name="file_kk" class="d-none" accept=".jpg, .jpeg, .png, image/png, image/jpeg" required
                                             onchange="updateFileName(this, 'text-kk', 'icon-kk')">
                                     </label>
                                 </div>
@@ -271,6 +278,38 @@ $pesan  = isset($_GET['pesan']) ? $_GET['pesan'] : '';
                 iconElement.classList.add('text-success');
             }
         }
+
+        // VALIDASI NIK & FORM
+        document.querySelector('form').addEventListener('submit', function(e) {
+            var nikInput = document.querySelector('input[name="nik"]');
+            var nik = nikInput.value;
+            var alertContainer = document.getElementById('alert-container');
+            
+            // Bersihkan alert sebelumnya
+            alertContainer.innerHTML = '';
+
+            // Cek kondisi NIK: Harus angka dan panjangnya 16 digit
+            if (nik.length !== 16 || isNaN(nik)) {
+                e.preventDefault(); // Mencegah pengiriman form
+                
+                // Buat elemen alert Bootstrap
+                var alertHtml = `
+                    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+                        <div class="d-flex align-items-center">
+                            <span class="material-symbols-outlined me-2">error</span>
+                            <div><strong>Gagal!</strong> NIK harus berjumlah 16 digit angka.</div>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+                
+                // Tampilkan alert
+                alertContainer.innerHTML = alertHtml;
+                
+                // Scroll ke atas agar alert terlihat
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
     </script>
 
     <!-- Menu Toggle Script -->
